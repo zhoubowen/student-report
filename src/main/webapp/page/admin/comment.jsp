@@ -1,7 +1,6 @@
-
-<%--学生,教师管理列表--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <jsp:include page="header.jsp" flush="true"/>
 
@@ -11,7 +10,7 @@
 
 <div class="page-container row-fluid">
 
-    <jsp:include page="menu.jsp?m=${param.roleType == 1 ? 1 : 0 }" flush="true"/>
+    <jsp:include page="menu.jsp?m=2" flush="true"/>
 
     <div class="page-content">
 
@@ -26,10 +25,10 @@
                             <i class="icon-angle-right"></i>
                         </li>
                         <li>
-                            <a href="/admin/member/index">${param.roleType == 1 ? "教师" : "学生" }信息</a>
+                            <a href="/admin/member/index">留言信息</a>
                             <i class="icon-angle-right"></i>
                         </li>
-                        <li><a href="#">${param.roleType == 1 ? "教师" : "学生" }列表</a></li>
+                        <li><a href="#">留言列表</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,16 +39,14 @@
                     <div class="portlet box light-grey">
 
                         <div class="portlet-title">
-                            <div class="caption"><i class="icon-globe"></i>${param.roleType == 1 ? "教师" : "学生" }列表</div>
+                            <div class="caption"><i class="icon-globe"></i>留言列表</div>
                         </div>
 
                         <div class="portlet-body">
-                            <%--<a class="btn green" href="/admin/member/input?roleType=${param.roleType}">添加</a>--%>
-                            <%--<hr/>--%>
                             <div class="tabbable tabbable-custom">
                                 <ul class="nav nav-tabs">
-                                    <li class="${param.status == 1 ? 'active' : ''}"><a href="/admin/member/index?roleType=${param.roleType}&status=1">审核通过</a></li>
-                                    <li class="${param.status == 0 ? 'active' : ''}"><a href="/admin/member/index?roleType=${param.roleType}&status=0">待审核</a></li>
+                                    <li class="${param.status == 1 ? 'active' : ''}"><a href="/admin/comment/index?status=1">审核通过</a></li>
+                                    <li class="${param.status == 0 ? 'active' : ''}"><a href="/admin/comment/index?status=0">待审核</a></li>
                                 </ul>
 
                                 <div class="tab-content">
@@ -57,16 +54,11 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th>姓名</th>
-                                                <c:if test="${param.roleType == 2}">
-                                                    <th class="hidden-480">班级</th>
-                                                    <th class="hidden-480">专业</th>
-                                                    <th class="hidden-480">宿舍</th>
-                                                    <th class="hidden-480">学费(元)</th>
-                                                    <th class="hidden-480">学籍</th>
-                                                </c:if>
-                                                <th class="hidden-480">邮箱</th>
-                                                <th class="hidden-480">联系电话</th>
+                                                <th>留言内容</th>
+                                                <th class="hidden-480">留言者</th>
+                                                <th class="hidden-480">审核状态</th>
+                                                <th class="hidden-480">留言时间</th>
+                                                <th class="hidden-480">回复状态</th>
                                                 <th >操作</th>
                                             </tr>
 
@@ -75,24 +67,30 @@
                                             <tbody>
                                             <c:forEach var="item" items="${list}">
                                                 <tr class="odd gradeX">
-                                                    <td>${item.name}</td>
-                                                    <c:if test="${param.roleType == 2}">
-                                                        <td>${item.clazzDic.dicValue}</td>
-                                                        <td>${item.majorDic.dicValue}</td>
-                                                        <td>${item.dormitoryDic.dicValue}</td>
-                                                        <td class="hidden-480">${item.tuition}</td>
-                                                        <td class="hidden-480">${item.schoolNo}</td>
-                                                    </c:if>
-                                                    <td class="hidden-480">${item.email}</td>
-                                                    <td class="hidden-480">${item.phone}</td>
+                                                    <td>${item.content}</td>
+                                                    <td>${item.commentMember.name}</td>
+                                                    <td>
+                                                        <c:choose>
+                                                            <c:when test="${item.status == 0}">
+                                                                待审核
+                                                            </c:when>
+                                                            <c:when test="${item.status == 1}">
+                                                                审核通过
+                                                            </c:when>
+                                                            <c:otherwise>审核拒绝</c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                    <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                                    <td>
+                                                        ${item.replyContent ? "已回复" : "未回复"}
+                                                    </td>
                                                     <td >
-                                                    <%--<a class="btn red" data-toggle = "modal" data-id= "${item.id}" data-target="#static">删除</a>--%>
                                                         <c:if test="${param.status == 0}">
-                                                            <a class="btn green" href="/admin/member/save?id=${item.id}&roleType=${item.roleType}&status=1">审核通过</a>
+                                                            <a class="btn green" href="/admin/member/save?id=${item.id}&status=1">审核通过</a>
                                                         </c:if>
 
                                                         <c:if test="${param.status == 1}">
-                                                            <a class="btn green" href="/admin/member/input?memberId=${item.id}&roleType=${item.roleType}">修改</a>
+                                                            <a class="btn green" href="/admin/member/input?memberId=${item.id}">去回复</a>
                                                         </c:if>
                                                     </td>
                                                 </tr>
@@ -128,7 +126,6 @@
     </div>
     <form id="modelDeleteForm" action="/admin/member/delete" method="post">
         <input type="hidden" name="memberId">
-        <input type="hidden" name="roleType" value="${param.roleType}">
         <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn">否</button>
             <button type="button" data-dismiss="modal" class="btn green" onclick="doDelete()">是</button>

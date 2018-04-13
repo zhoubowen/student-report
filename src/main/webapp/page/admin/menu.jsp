@@ -12,9 +12,9 @@
                 <span class="selected"></span>
             </a>
             <ul class="sub-menu">
-                <li class="${param.m == 3 ? 'active' : '' }"><a href="/admin/member/index?roleType=2&status=1">新生管理</a></li>
-                <li class="${param.m == 4 ? 'active' : '' }"><a href="/admin/member/index?roleType=1">教师管理</a></li>
-                <li class="${param.m == 2 ? 'active' : '' }"><a href="/admin/video/index">留言管理</a></li>
+                <li class="${param.m == 0 ? 'active' : '' }"><a href="/admin/member/index?roleType=2&status=1">新生管理</a></li>
+                <li class="${param.m == 1 ? 'active' : '' }"><a href="/admin/member/index?roleType=1&status=1">教师管理</a></li>
+                <li class="${param.m == 2 ? 'active' : '' }"><a href="/admin/comment/index?status=1">留言管理</a></li>
             </ul>
         </li>
 
@@ -26,7 +26,7 @@
             </a>
             <ul class="sub-menu">
                 <li class="${param.m == 3 ? 'active' : '' }"><a href="/admin/member/index?roleType=2">宿舍管理</a></li>
-                <li class="${param.m == 2 ? 'active' : '' }"><a href="/admin/video/index">留言管理</a></li>
+                <li class="${param.m == 4 ? 'active' : '' }"><a href="/admin/video/index">留言管理</a></li>
             </ul>
         </li>
 

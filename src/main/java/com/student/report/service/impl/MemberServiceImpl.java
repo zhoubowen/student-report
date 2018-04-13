@@ -62,18 +62,24 @@ public class MemberServiceImpl implements MemberService {
         if(!CollectionUtils.isEmpty(list)){
             list.stream().forEach(t -> {
                 Dictionary dictionary = new Dictionary();
-                dictionary.setDicKey(t.getClazz());
-                dictionary.setDicName(DictionaryConstant.CLAZZ);
-                Dictionary clazzDic = dictionaryMapper.selectOne(dictionary);
-                dictionary.setDicKey(t.getDormitory());
-                dictionary.setDicName(DictionaryConstant.DORMITORY);
-                Dictionary dormitoryDic = dictionaryMapper.selectOne(dictionary);
-                dictionary.setDicKey(t.getMajor());
-                dictionary.setDicName(DictionaryConstant.MAJOR);
-                Dictionary majorDic = dictionaryMapper.selectOne(dictionary);
-                t.setClazzDic(clazzDic);
-                t.setMajorDic(majorDic);
-                t.setDormitoryDic(dormitoryDic);
+                if(Objects.nonNull(t.getClazz())){
+                    dictionary.setDicName(DictionaryConstant.CLAZZ);
+                    dictionary.setDicKey(t.getClazz());
+                    Dictionary clazzDic = dictionaryMapper.selectOne(dictionary);
+                    t.setClazzDic(clazzDic);
+                }
+                if(Objects.nonNull(t.getDormitory())){
+                    dictionary.setDicKey(t.getDormitory());
+                    dictionary.setDicName(DictionaryConstant.DORMITORY);
+                    Dictionary dormitoryDic = dictionaryMapper.selectOne(dictionary);
+                    t.setDormitoryDic(dormitoryDic);
+                }
+                if(Objects.nonNull(t.getMajor())){
+                    dictionary.setDicKey(t.getMajor());
+                    dictionary.setDicName(DictionaryConstant.MAJOR);
+                    Dictionary majorDic = dictionaryMapper.selectOne(dictionary);
+                    t.setMajorDic(majorDic);
+                }
             });
         }
 

@@ -1,8 +1,11 @@
 package com.student.report.controller.admin;
 
 import com.student.report.constant.CommonConstant;
+import com.student.report.constant.DictionaryConstant;
+import com.student.report.entity.Dictionary;
 import com.student.report.entity.Member;
 import com.student.report.param.MemberQueryParam;
+import com.student.report.service.DictionaryService;
 import com.student.report.service.MemberService;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +23,8 @@ public class MemberManagerController
 {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private DictionaryService dictionaryService;
 
     @RequestMapping({"index"})
     public ModelAndView index(MemberQueryParam memberQueryParam, PageUtil pageUtil)
@@ -36,9 +41,15 @@ public class MemberManagerController
     public ModelAndView input(Integer memberId)
     {
         Member member = this.memberService.findByMemberId(memberId);
+        List<Dictionary> majors = dictionaryService.queryByDicName(DictionaryConstant.MAJOR);
+        List<Dictionary> dormitories = dictionaryService.queryByDicName(DictionaryConstant.DORMITORY);
+        List<Dictionary> clazzs = dictionaryService.queryByDicName(DictionaryConstant.CLAZZ);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/admin/memberInput");
         modelAndView.addObject("member", member);
+        modelAndView.addObject("majors", majors);
+        modelAndView.addObject("dormitories", dormitories);
+        modelAndView.addObject("clazzs", clazzs);
         return modelAndView;
     }
 
@@ -53,7 +64,7 @@ public class MemberManagerController
         }else{
             memberService.update(memer);
         }
-        return "redirect:/admin/member/index?roleType=" + memer.getRoleType();
+        return "redirect:/admin/member/index?status="+memer.getStatus()+"&roleType=" + memer.getRoleType();
     }
 
     @RequestMapping({"delete"})

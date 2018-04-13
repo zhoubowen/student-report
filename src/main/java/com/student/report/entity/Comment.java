@@ -1,9 +1,6 @@
 package com.student.report.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -19,10 +16,21 @@ public class Comment {
 
     @Column(name = "member_id")
     private Integer memberId;
+    @Transient
+    private Member commentMember;
 
     @Column(name = "content")
     private String content;
 
+    @Column(name = "reply_content")
+    private String replyContent;
+
+    @Column(name = "reply_member_id")
+    private Integer replyMemberId;
+
+    @Transient
+    private Member replyMember;
+    private Integer status;
     @Column(name = "create_time")
     private Date createTime;
 
@@ -75,6 +83,46 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getReplyContent() {
+        return replyContent;
+    }
+
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
+    }
+
+    public Integer getReplyMemberId() {
+        return replyMemberId;
+    }
+
+    public void setReplyMemberId(Integer replyMemberId) {
+        this.replyMemberId = replyMemberId;
+    }
+
+    public Member getReplyMember() {
+        return replyMember;
+    }
+
+    public void setReplyMember(Member replyMember) {
+        this.replyMember = replyMember;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Member getCommentMember() {
+        return commentMember;
+    }
+
+    public void setCommentMember(Member commentMember) {
+        this.commentMember = commentMember;
     }
 
     @Override
