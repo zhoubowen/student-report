@@ -71,5 +71,10 @@ public class CommentServiceImpl implements CommentService{
         return list;
     }
 
+    @Override
+    public int update(Comment comment) {
+        return commentMapper.updateByPrimaryKeySelective(comment);
+    }
+
 
 }

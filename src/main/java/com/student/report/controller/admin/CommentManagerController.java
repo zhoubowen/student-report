@@ -30,5 +30,11 @@ public class CommentManagerController {
         return modelAndView;
     }
 
+    @RequestMapping("update")
+    public String update(Comment comment){
+        commentService.update(comment);
+        return "redirect:/admin/comment/index?status=" + comment.getStatus();
+    }
+
 
 }

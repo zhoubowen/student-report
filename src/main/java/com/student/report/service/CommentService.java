@@ -19,4 +19,6 @@ public interface CommentService {
 
     List<CommentDTO> findPageCommentByAskId(Integer askId, PageUtil pageUtil);
 
+    int update(Comment comment);
+
 }

@@ -59,7 +59,7 @@
                                                 <th class="hidden-480">审核状态</th>
                                                 <th class="hidden-480">留言时间</th>
                                                 <th class="hidden-480">回复状态</th>
-                                                <th >操作</th>
+                                                <th>操作</th>
                                             </tr>
 
                                             </thead>
@@ -82,16 +82,24 @@
                                                     </td>
                                                     <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                     <td>
-                                                        ${item.replyContent ? "已回复" : "未回复"}
+                                                        ${empty item.replyContent ? "未回复" : "已回复"}
                                                     </td>
-                                                    <td >
-                                                        <c:if test="${param.status == 0}">
-                                                            <a class="btn green" href="/admin/member/save?id=${item.id}&status=1">审核通过</a>
-                                                        </c:if>
-
-                                                        <c:if test="${param.status == 1}">
-                                                            <a class="btn green" href="/admin/member/input?memberId=${item.id}">去回复</a>
-                                                        </c:if>
+                                                    <td style="text-align: center">
+                                                        <c:choose>
+                                                            <c:when test="${param.status ==0}">
+                                                                <a class="btn green" href="/admin/comment/update?id=${item.id}&status=1">审核通过</a>
+                                                            </c:when>
+                                                            <c:when test="${param.status == 1}">
+                                                                <c:choose>
+                                                                    <c:when test="${empty item.replyContent}">
+                                                                        <a class="btn green" data-toggle = "modal" data-id= "${item.id}" data-target="#static">去回复</a>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <a class="btn blue" data-toggle = "modal" data-id= "${item.id}" data-replycontent="${item.replyContent}" data-target="#static">查看回复</a>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </c:when>
+                                                        </c:choose>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -121,14 +129,15 @@
 
 
 <div id="static" class="modal hide fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-    <div class="modal-body">
-        <p>是否确定删除?</p>
-    </div>
-    <form id="modelDeleteForm" action="/admin/member/delete" method="post">
-        <input type="hidden" name="memberId">
+    <form id="modelDeleteForm" action="/admin/comment/update" method="post">
+        <div class="modal-body">
+            <textarea class="large m-wrap" rows="3" name="replyContent"></textarea>
+            <input type="hidden" name="status" value="${param.status}">
+        </div>
+        <input type="hidden" name="id">
         <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn">否</button>
-            <button type="button" data-dismiss="modal" class="btn green" onclick="doDelete()">是</button>
+            <button type="button" data-dismiss="modal" class="btn">取消</button>
+            <button type="button" data-dismiss="modal" class="btn green" onclick="doDelete()">确定</button>
         </div>
     </form>
 </div>
@@ -141,8 +150,10 @@
         TableManaged.init();
         $('#static').on('show.bs.modal', function (event) {
             var btnThis = $(event.relatedTarget); //触发事件的按钮
-            var memberId = btnThis.data("id");
-            $(this).find('input[name=memberId]').val(memberId);
+            var commentId = btnThis.data("id");
+            $(this).find('input[name=id]').val(commentId);
+            console.log(btnThis.data("replyContent"))
+            $(this).find('textarea[name=replyContent]').text(btnThis.data("replycontent"));
         });
 
     });
