@@ -11,7 +11,14 @@
 
 <div class="page-container row-fluid">
 
-    <jsp:include page="menu.jsp?m=${param.roleType == 1 ? 1 : 0 }" flush="true"/>
+    <c:choose>
+        <c:when test="${empty loginRoleType}">
+            <jsp:include page="menu.jsp?m=${param.roleType == 1 ? 1 : 0 }" flush="true"/>
+        </c:when>
+        <c:otherwise>
+            <jsp:include page="menu.jsp?m=5" flush="true"/>
+        </c:otherwise>
+    </c:choose>
 
     <div class="page-content">
 
@@ -48,8 +55,10 @@
                             <%--<hr/>--%>
                             <div class="tabbable tabbable-custom">
                                 <ul class="nav nav-tabs">
-                                    <li class="${param.status == 1 ? 'active' : ''}"><a href="/admin/member/index?roleType=${param.roleType}&status=1">审核通过</a></li>
-                                    <li class="${param.status == 0 ? 'active' : ''}"><a href="/admin/member/index?roleType=${param.roleType}&status=0">待审核</a></li>
+                                    <c:if test="${empty loginRoleType}">
+                                        <li class="${param.status == 1 ? 'active' : ''}"><a href="/admin/member/index?roleType=${param.roleType}&status=1">审核通过</a></li>
+                                        <li class="${param.status == 0 ? 'active' : ''}"><a href="/admin/member/index?roleType=${param.roleType}&status=0">待审核</a></li>
+                                    </c:if>
                                 </ul>
 
                                 <div class="tab-content">
@@ -92,7 +101,10 @@
                                                         </c:if>
 
                                                         <c:if test="${param.status == 1}">
-                                                            <a class="btn green" href="/admin/member/input?memberId=${item.id}&roleType=${item.roleType}">修改</a>
+                                                            <a class="btn green" href="/admin/member/input?memberId=${item.id}&roleType=${item.roleType}&loginRoleType=${loginRoleType}">修改</a>
+                                                            <c:if test="${!empty loginRoleType}">
+                                                                <a class="btn bulue" data-toggle = "modal" data-id= "${item.id}" data-status= "${item.status}" data-target="#static">修改密码</a>
+                                                            </c:if>
                                                         </c:if>
                                                     </td>
                                                 </tr>
@@ -123,12 +135,19 @@
 
 
 <div id="static" class="modal hide fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-    <div class="modal-body">
-        <p>是否确定删除?</p>
-    </div>
-    <form id="modelDeleteForm" action="/admin/member/delete" method="post">
-        <input type="hidden" name="memberId">
+    <form id="modelDeleteForm" action="/admin/member/save" method="post">
+        <div class="modal-body form form-horizontal">
+            <div class="control-group">
+                <label class="control-label">新密码</label>
+                <div class="controls">
+                    <input type="password" name="password" class="span3 m-wrap" value="">
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="id">
+        <input type="hidden" name="status">
         <input type="hidden" name="roleType" value="${param.roleType}">
+        <input type="hidden" name="loginRoleType" value="${param.loginRoleType}">
         <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn">否</button>
             <button type="button" data-dismiss="modal" class="btn green" onclick="doDelete()">是</button>
@@ -145,7 +164,9 @@
         $('#static').on('show.bs.modal', function (event) {
             var btnThis = $(event.relatedTarget); //触发事件的按钮
             var memberId = btnThis.data("id");
-            $(this).find('input[name=memberId]').val(memberId);
+            var status = btnThis.data("status");
+            $(this).find('input[name=id]').val(memberId);
+            $(this).find('input[name=status]').val(status);
         });
 
     });

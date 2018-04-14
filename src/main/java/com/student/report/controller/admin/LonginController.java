@@ -37,6 +37,7 @@ public class LonginController {
             HttpSession httpSession = request.getSession();
             httpSession.setAttribute("memberId", longMember.getId());
             httpSession.setAttribute("name", longMember.getName());
+            httpSession.setAttribute("roleType", longMember.getRoleType());
             modelAndView.setViewName("/admin/index");
         } catch (BusinessException e) {
             modelAndView.addObject("code", e.getCode());

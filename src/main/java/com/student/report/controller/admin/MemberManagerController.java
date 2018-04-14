@@ -34,6 +34,7 @@ public class MemberManagerController
         modelAndView.setViewName("/admin/member");
         modelAndView.addObject("list", list);
         modelAndView.addObject("page", pageUtil);
+        modelAndView.addObject("loginRoleType", memberQueryParam.getLoginRoleType());
         return modelAndView;
     }
 
@@ -55,16 +56,24 @@ public class MemberManagerController
 
 
     @RequestMapping({"save"})
-    public String save(Member memer)
+    public String save(Member memer, Integer loginRoleType)
     {
         if(Objects.isNull(memer.getId())){
             memer.setStatus(CommonConstant.VALID);
             memer.setPassword(MD5Util.EncoderByMd5(CommonConstant.DEFAULT_PASSWORD));
             memberService.add(memer);
         }else{
+
+            if(Objects.nonNull(memer.getPassword())){
+                memer.setPassword(MD5Util.EncoderByMd5(memer.getPassword()));
+            }
             memberService.update(memer);
         }
-        return "redirect:/admin/member/index?status="+memer.getStatus()+"&roleType=" + memer.getRoleType();
+        if(Objects.nonNull(loginRoleType)){
+            return "redirect:/admin/member/index?status="+memer.getStatus()+"&roleType=" + memer.getRoleType() + "&loginRoleType=" + loginRoleType;
+        }else {
+            return "redirect:/admin/member/index?status="+memer.getStatus()+"&roleType=" + memer.getRoleType();
+        }
     }
 
     @RequestMapping({"delete"})

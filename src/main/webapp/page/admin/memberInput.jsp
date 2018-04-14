@@ -51,6 +51,7 @@
                                 <input type="hidden" name="id" value="${member.id}"/>
                                 <input type="hidden" name="roleType" value="${param.roleType}"/>
                                 <input type="hidden" name="status" value="${member.status}"/>
+                                <input type="hidden" name="loginRoleType" value="${param.loginRoleType}"/>
 
                                 <div class="control-group">
                                     <label class="control-label">账号</label>
@@ -88,36 +89,39 @@
                                         </div>
                                     </div>
 
-                                    <div class="control-group">
-                                        <label class="control-label">学费</label>
-                                        <div class="controls">
-                                            <input class="m-wrap span6" name="tuition" type="text" value="${member.tuition}" />
+                                    <c:if test="${ empty param.loginRoleType}">
+                                        <div class="control-group">
+                                            <label class="control-label">学费</label>
+                                            <div class="controls">
+                                                <input class="m-wrap span6" name="tuition" type="text" value="${member.tuition}" />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="control-group">
-                                        <label class="control-label">班级</label>
-                                        <div class="controls">
-                                            <select class="m-wrap span6" name="clazz">
-                                                <option value="">请选择</option>
-                                                <c:forEach items="${clazzs}" var="item">
-                                                    <option value="${item.dicKey}" ${member.clazz == item.dicKey ? "selected" : ""}>${item.dicValue}</option>
-                                                </c:forEach>
-                                            </select>
+                                        <div class="control-group">
+                                            <label class="control-label">班级</label>
+                                            <div class="controls">
+                                                <select class="m-wrap span6" name="clazz">
+                                                    <option value="">请选择</option>
+                                                    <c:forEach items="${clazzs}" var="item">
+                                                        <option value="${item.dicKey}" ${member.clazz == item.dicKey ? "selected" : ""}>${item.dicValue}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="control-group">
-                                        <label class="control-label">专业</label>
-                                        <div class="controls">
-                                            <select class="m-wrap span6" name="major">
-                                                <option value="">请选择</option>
-                                                <c:forEach items="${majors}" var="item">
-                                                    <option value="${item.dicKey}"  ${member.major == item.dicKey ? "selected" : ""}>${item.dicValue}</option>
-                                                </c:forEach>
-                                            </select>
+                                        <div class="control-group">
+                                            <label class="control-label">专业</label>
+                                            <div class="controls">
+                                                <select class="m-wrap span6" name="major">
+                                                    <option value="">请选择</option>
+                                                    <c:forEach items="${majors}" var="item">
+                                                        <option value="${item.dicKey}"  ${member.major == item.dicKey ? "selected" : ""}>${item.dicValue}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </c:if>
+
 
                                     <div class="control-group">
                                         <label class="control-label">宿舍</label>

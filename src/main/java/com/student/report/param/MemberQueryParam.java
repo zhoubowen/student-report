@@ -5,6 +5,15 @@ package com.student.report.param;
 public class MemberQueryParam {
     private Integer roleType;
     private Integer status;
+    private Integer loginRoleType;
+
+    public Integer getLoginRoleType() {
+        return loginRoleType;
+    }
+
+    public void setLoginRoleType(Integer loginRoleType) {
+        this.loginRoleType = loginRoleType;
+    }
 
     public Integer getStatus() {
         return status;
