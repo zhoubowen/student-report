@@ -31,6 +31,9 @@
                                     <th>昵称</th>
                                     <th>邮箱</th>
                                     <th>手机号码</th>
+                                    <th>学籍</th>
+                                    <th>学费</th>
+                                    <th>专业</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -40,6 +43,9 @@
                                         <td>${member.name}</td>
                                         <td>${member.email}</td>
                                         <td>${member.phone}</td>
+                                        <td>${member.schoolNo}</td>
+                                        <td>${member.tuition}</td>
+                                        <td>${member.majorDic.dicValue}</td>
                                         <td>
                                             <a class="btn green" href="/member/info?type=0">编辑</a>
                                         </td>

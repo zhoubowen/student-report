@@ -15,17 +15,9 @@
                         <li class="${param.m == 0 ? 'active' : ''}">
                             <a href="/?status=0">
                                 <span class="${param.m == 0 ? 'selected' : ''}"></span>
-                                未解决
+                                留言板
                             </a>
                         </li>
-
-                        <li class="${param.m == 1 ? 'active' : ''}">
-                            <a href="/?status=1">
-                                <span class="${param.m == 1 ? 'selected' : ''}"></span>
-                                已解决
-                            </a>
-                        </li>
-
 
                         <li class="${param.m == 2 ? 'active' : ''}">
                             <a href="/member/info">

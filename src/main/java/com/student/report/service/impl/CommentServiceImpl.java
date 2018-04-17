@@ -17,6 +17,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  */
@@ -39,8 +40,14 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<Comment> findForPage(CommentQueryParam commentQueryParam, PageUtil pageUtil) {
         PageHelper.startPage(pageUtil.getPage(), pageUtil.getSize());
-        Example example = new Example(Article.class);
-        example.createCriteria().andEqualTo("status", commentQueryParam.getStatus());
+        Example example = new Example(Comment.class);
+        Example.Criteria criteria = example.createCriteria();
+        if(Objects.nonNull(commentQueryParam.getStatus())){
+            criteria.andEqualTo("status", commentQueryParam.getStatus());
+        }
+        if(Objects.nonNull(commentQueryParam.getMemberId())){
+            criteria.andEqualTo("memberId", commentQueryParam.getMemberId());
+        }
         example.setOrderByClause("id DESC");
         List<Comment> list = commentMapper.selectByExample(example);
         if(!CollectionUtils.isEmpty(list)){

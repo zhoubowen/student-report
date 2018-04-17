@@ -10,7 +10,7 @@
 <ul class="ver-inline-menu tabbable margin-bottom-25">
     <li class="${param.t == 1 ? 'active' : ''}"><a href="#tab_1" data-toggle="tab" onclick="doInfo(1)"><i class="icon-group"></i> 个人信息</a></li>
     <c:if test="${sessionScope.roleType == 2}">
-        <li class="${param.t == 2 ? 'active' : ''}"><a href="#tab_2" data-toggle="tab" onclick="doInfo(2)"><i class="icon-leaf"></i> 我的提问</a></li>
+        <li class="${param.t == 2 ? 'active' : ''}"><a href="#tab_2" data-toggle="tab" onclick="doInfo(2)"><i class="icon-leaf"></i> 我的留言</a></li>
     </c:if>
     <%--<li class="${param.t == 3 ? 'active' : ''}"><a href="#tab_3" data-toggle="tab" onclick="doInfo(3)"><i class="icon-info-sign"></i> 招商投资信息</a></li>--%>
     <%--<li class="${param.t == 4 ? 'active' : ''}"><a href="#tab_4" data-toggle="tab" onclick="doInfo(4)"><i class="icon-tasks"></i> 收到的留言</a></li>--%>

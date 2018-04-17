@@ -3,12 +3,15 @@ package com.student.report.controller;
 import com.student.report.constant.CommonConstant;
 import com.student.report.entity.Article;
 import com.student.report.entity.Ask;
+import com.student.report.entity.Comment;
 import com.student.report.entity.Member;
 import com.student.report.exception.BusinessException;
 import com.student.report.param.ArticleQueryParam;
 import com.student.report.param.AskQueryParam;
+import com.student.report.param.CommentQueryParam;
 import com.student.report.service.ArticleService;
 import com.student.report.service.AskService;
+import com.student.report.service.CommentService;
 import com.student.report.service.MemberService;
 import com.student.report.util.MD5Util;
 import com.student.report.util.PageUtil;
@@ -35,6 +38,8 @@ public class MemberController {
     private ArticleService articleService;
     @Autowired
     private AskService askService;
+    @Autowired
+    private CommentService commentService;
 
 
     @RequestMapping("/loginInput")
@@ -102,7 +107,7 @@ public class MemberController {
     @RequestMapping("register")
     public String register(Member member){
         member.setPassword(MD5Util.EncoderByMd5(member.getPassword()));
-        member.setStatus(CommonConstant.VALID);
+        member.setStatus(CommonConstant.VERIFY);
         memberService.add(member);
         return "redirect:/member/loginInput";
     }
@@ -170,9 +175,12 @@ public class MemberController {
     }
 
     @RequestMapping("askList")
-    public ModelAndView askList(AskQueryParam askQueryParam, PageUtil pageUtil, HttpServletRequest request){
-        askQueryParam.setMemberId((Integer) request.getSession().getAttribute("memberId"));
-        List<Ask> list = askService.findForPage(askQueryParam, pageUtil);
+    public ModelAndView askList(CommentQueryParam commentQueryParam, PageUtil pageUtil, HttpServletRequest request){
+        Integer memberId = (Integer) request.getSession().getAttribute("memberId");
+//        commentQueryParam.setStatus(CommonConstant.VALID);
+//        commentQueryParam.setStatus(null);
+        commentQueryParam.setMemberId(memberId);
+        List<Comment> list = commentService.findForPage(commentQueryParam, pageUtil);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("askList");
         modelAndView.addObject("list", list);
@@ -188,13 +196,10 @@ public class MemberController {
     }
 
     @RequestMapping("askSave")
-    public String askSave(Ask ask, HttpServletRequest request){
-        ask.setCreateBy((Integer) request.getSession().getAttribute("memberId"));
-        ask.setDeleted(CommonConstant.VERIFY);
-        ask.setStatus(CommonConstant.VERIFY);
-        ask.setConcerns(CommonConstant.VERIFY);
-        ask.setUpdateTime(new Date());
-        askService.add(ask);
+    public String askSave(Comment comment, HttpServletRequest request){
+        comment.setMemberId((Integer) request.getSession().getAttribute("memberId"));
+        comment.setStatus(CommonConstant.VERIFY);
+        commentService.add(comment);
         return "redirect:/member/askList";
     }
 

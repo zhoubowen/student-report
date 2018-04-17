@@ -20,7 +20,7 @@
                 <div class="span12">
                     <div class="portlet box blue" style="margin-top: 20px;">
                         <div class="portlet-title">
-                            <div class="caption"><i class="icon-cogs"></i>我要提问</div>
+                            <div class="caption"><i class="icon-cogs"></i>我要留言</div>
                         </div>
 
                         <div class="portlet-body form">
@@ -28,16 +28,9 @@
                             <form action="/member/askSave" class="form-horizontal" method="post">
 
                                 <div class="control-group">
-                                    <label class="control-label">标题</label>
-                                    <div class="controls">
-                                        <input type="text" name="title" class="span6 m-wrap" value="">
-                                    </div>
-                                </div>
-
-                                <div class="control-group">
                                     <label class="control-label">描述</label>
                                     <div class="controls">
-                                        <textarea id="editor_id" name="descript" style="width:90%;height:300px;">
+                                        <textarea id="editor_id" name="content" style="width:90%;height:300px;">
                                         </textarea>
                                     </div>
                                 </div>

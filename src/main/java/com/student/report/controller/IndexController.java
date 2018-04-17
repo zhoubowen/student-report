@@ -4,9 +4,11 @@ import com.student.report.constant.CommonConstant;
 import com.student.report.dto.CommentDTO;
 import com.student.report.entity.Article;
 import com.student.report.entity.Ask;
+import com.student.report.entity.Comment;
 import com.student.report.entity.Video;
 import com.student.report.param.ArticleQueryParam;
 import com.student.report.param.AskQueryParam;
+import com.student.report.param.CommentQueryParam;
 import com.student.report.param.VideoQueryParam;
 import com.student.report.service.*;
 import com.student.report.util.PageUtil;
@@ -37,9 +39,9 @@ public class IndexController {
     private VideoService videoService;
 
     @RequestMapping("/")
-    public ModelAndView index(AskQueryParam askQueryParam, PageUtil pageUtil){
-        askQueryParam.setStatus(CommonConstant.VALID);
-        List<Ask> list = askService.findForPage(askQueryParam, pageUtil);
+    public ModelAndView index(CommentQueryParam commentQueryParam, PageUtil pageUtil){
+        commentQueryParam.setStatus(CommonConstant.VALID);
+        List<Comment> list = commentService.findForPage(commentQueryParam, pageUtil);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         modelAndView.addObject("list", list);
@@ -48,8 +50,11 @@ public class IndexController {
     }
 
     @RequestMapping("list")
-    public ModelAndView list(AskQueryParam askQueryParam, PageUtil pageUtil){
-        List<Ask> list = askService.findForPage(askQueryParam, pageUtil);
+    public ModelAndView list(CommentQueryParam commentQueryParam, PageUtil pageUtil, HttpServletRequest request){
+        Integer memberId = (Integer) request.getSession().getAttribute("memberId");
+        commentQueryParam.setStatus(CommonConstant.VALID);
+        commentQueryParam.setMemberId(memberId);
+        List<Comment> list = commentService.findForPage(commentQueryParam, pageUtil);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("askList");
         modelAndView.addObject("list", list);

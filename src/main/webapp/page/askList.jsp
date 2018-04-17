@@ -20,9 +20,9 @@
                 <div class="span12">
                     <div class="portlet box blue" style="margin-top: 20px;">
                         <div class="portlet-title">
-                            <div class="caption"><i class="icon-cogs"></i>我的提问</div>
+                            <div class="caption"><i class="icon-cogs"></i>我的留言</div>
                             <div class="tools">
-                                <a href="/member/askInput" class="add" title="我要提问"></a>
+                                <a href="/member/askInput" class="add" title="我要留言"></a>
                             </div>
                         </div>
 
@@ -30,11 +30,8 @@
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>问题</th>
-                                    <th class="hidden-480">提问者</th>
-                                    <th class="hidden-480">提问时间</th>
-                                    <th class="hidden-480">关注数</th>
-                                    <th class="hidden-480">解决状态</th>
+                                    <th>留言内容</th>
+                                    <th class="hidden-480">时间</th>
                                 </tr>
 
                                 </thead>
@@ -42,24 +39,9 @@
                                 <tbody>
                                 <c:forEach var="item" items="${list}">
                                     <tr class="odd gradeX">
-                                        <td><a href="/detail?id=${item.id}">${item.title}</a></td>
-                                        <td class="hidden-480">${item.member.name}</td>
+                                        <td><a href="/detail?id=${item.id}">${item.content}</a></td>
                                         <td class="hidden-480">
                                             <fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                                        </td>
-                                        <td class="hidden-480">${item.concerns}</td>
-                                        <td class="center hidden-480">
-                                            <c:choose>
-                                                <c:when test="${item.status == 0}">
-                                                    未解决
-                                                </c:when>
-                                                <c:when test="${item.status == 1}">
-                                                    已解决
-                                                </c:when>
-                                                <c:otherwise>
-                                                    未解决
-                                                </c:otherwise>
-                                            </c:choose>
                                         </td>
                                     </tr>
                                 </c:forEach>
