@@ -55,6 +55,7 @@
                                 <tr>
                                     <th>标题</th>
                                     <th class="hidden-480">公告内容</th>
+                                    <th class="hidden-480">发布者</th>
                                     <th class="hidden-480">发布时间</th>
                                     <th >操作</th>
                                 </tr>
@@ -66,6 +67,7 @@
                                     <tr class="odd gradeX">
                                         <td>${item.title}</td>
                                         <td class="hidden-480">${item.content}</td>
+                                        <td class="hidden-480">${item.member.name}</td>
                                         <td class="hidden-480">
                                             <fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                                         </td>

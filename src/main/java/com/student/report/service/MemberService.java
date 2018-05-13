@@ -25,4 +25,6 @@ public interface MemberService {
     Member login(Member member) throws BusinessException;
 
     Member findByMemberId(Integer memberId);
+
+    int count(Member member);
 }

@@ -59,10 +59,10 @@ public class MemberController {
             httpSession.setAttribute("roleType", longMember.getRoleType());
             httpSession.setAttribute("name", longMember.getName());
             modelAndView.setViewName("/admin/index");
-            if(member.getRoleType() == 0){
-                return "redirect:/admin/index";
+            if(member.getRoleType() == 2){
+                return "redirect:/member/info";
             }
-            return "redirect:/member/info";
+            return "redirect:/admin/index";
         } catch (BusinessException e) {
             modelAndView.addObject("code", e.getCode());
             modelAndView.getModel().put("msg", e.getMsg());
@@ -180,12 +180,12 @@ public class MemberController {
     }
 
     @RequestMapping("askList")
-    public ModelAndView askList(CommentQueryParam commentQueryParam, PageUtil pageUtil, HttpServletRequest request){
+    public ModelAndView askList(AskQueryParam askQueryParam, PageUtil pageUtil, HttpServletRequest request){
         Integer memberId = (Integer) request.getSession().getAttribute("memberId");
 //        commentQueryParam.setStatus(CommonConstant.VALID);
 //        commentQueryParam.setStatus(null);
-        commentQueryParam.setMemberId(memberId);
-        List<Comment> list = commentService.findForPage(commentQueryParam, pageUtil);
+        askQueryParam.setMemberId(memberId);
+        List<Ask> list = askService.findForPage(askQueryParam, pageUtil);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("askList");
         modelAndView.addObject("list", list);
@@ -201,10 +201,13 @@ public class MemberController {
     }
 
     @RequestMapping("askSave")
-    public String askSave(Comment comment, HttpServletRequest request){
-        comment.setMemberId((Integer) request.getSession().getAttribute("memberId"));
-        comment.setStatus(CommonConstant.VERIFY);
-        commentService.add(comment);
+    public String askSave(Ask ask, HttpServletRequest request){
+        ask.setCreateBy((Integer) request.getSession().getAttribute("memberId"));
+        ask.setDeleted(CommonConstant.VERIFY);
+        ask.setStatus(CommonConstant.VERIFY);
+        ask.setConcerns(CommonConstant.VERIFY);
+        ask.setUpdateTime(new Date());
+        askService.add(ask);
         return "redirect:/member/askList";
     }
 

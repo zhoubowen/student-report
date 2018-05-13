@@ -19,6 +19,13 @@
                             </a>
                         </li>
 
+                        <li class="${param.m == 3 ? 'active' : ''}">
+                            <a href="/notice/index?type=2">
+                                <span class="${param.m == 3 ? 'selected' : ''}"></span>
+                                公告栏
+                            </a>
+                        </li>
+
                         <li class="${param.m == 2 ? 'active' : ''}">
                             <a href="/member/info">
                                 <span class="${param.m == 2 ? 'selected' : ''}"></span>

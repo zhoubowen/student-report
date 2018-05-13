@@ -15,6 +15,7 @@ import com.student.report.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -45,12 +46,14 @@ public class MemberManagerController
         List<Dictionary> majors = dictionaryService.queryByDicName(DictionaryConstant.MAJOR);
         List<Dictionary> dormitories = dictionaryService.queryByDicName(DictionaryConstant.DORMITORY);
         List<Dictionary> clazzs = dictionaryService.queryByDicName(DictionaryConstant.CLAZZ);
+        List<Dictionary> positionals = dictionaryService.queryByDicName(DictionaryConstant.POSITIONAL);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/admin/memberInput");
         modelAndView.addObject("member", member);
         modelAndView.addObject("majors", majors);
         modelAndView.addObject("dormitories", dormitories);
         modelAndView.addObject("clazzs", clazzs);
+        modelAndView.addObject("positionals", positionals);
         return modelAndView;
     }
 
@@ -84,5 +87,12 @@ public class MemberManagerController
         member.setStatus(CommonConstant.DELETE);
         this.memberService.update(member);
         return "redirect:/admin/member/index?roleType=" + roleType;
+    }
+
+    @RequestMapping("sumDormitory")
+    @ResponseBody
+    public Integer sumDormitory(Member member){
+        Integer count =  memberService.count(member);
+        return count;
     }
 }

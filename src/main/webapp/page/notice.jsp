@@ -7,7 +7,7 @@
 <%@include file="header.jsp"%>
 
 <body class="page-header-fixed page-full-width">
-<jsp:include page="nav.jsp?m=${param.status == 1 ? 1 : 0}" flush="true"/>
+<jsp:include page="nav.jsp?m=3" flush="true"/>
 <div class="page-container row-fluid">
 
     <div class="row-fluid">
@@ -22,9 +22,10 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>留言标题</th>
-                                        <th class="hidden-480">留言者</th>
-                                        <th class="hidden-480">留言时间</th>
+                                        <th>通知标题</th>
+                                        <th>通知内容</th>
+                                        <th class="hidden-480">发布者</th>
+                                        <th class="hidden-480">发布时间</th>
                                     </tr>
 
                                     </thead>
@@ -32,7 +33,8 @@
                                     <tbody>
                                     <c:forEach var="item" items="${list}">
                                         <tr class="odd gradeX">
-                                            <td><a href="/detail?id=${item.id}">${item.title}</a></td>
+                                            <td>${item.title}</td>
+                                            <td>${item.content}</td>
                                             <td>${item.member.name}</td>
                                             <td><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                         </tr>

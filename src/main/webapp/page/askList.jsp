@@ -30,6 +30,7 @@
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
+                                    <th>标题</th>
                                     <th>留言内容</th>
                                     <th class="hidden-480">时间</th>
                                 </tr>
@@ -39,7 +40,8 @@
                                 <tbody>
                                 <c:forEach var="item" items="${list}">
                                     <tr class="odd gradeX">
-                                        <td><a href="/detail?id=${item.id}">${item.content}</a></td>
+                                        <td>${item.title}</td>
+                                        <td>${item.descript}</td>
                                         <td class="hidden-480">
                                             <fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                                         </td>

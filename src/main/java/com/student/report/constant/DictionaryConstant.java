@@ -7,4 +7,5 @@ public class DictionaryConstant {
     public static final String MAJOR = "专业";
     public static final String CLAZZ = "班级";
     public static final String DORMITORY = "宿舍";
+    public static final String POSITIONAL = "职称";
 }

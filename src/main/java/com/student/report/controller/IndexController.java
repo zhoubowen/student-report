@@ -37,11 +37,13 @@ public class IndexController {
     private ConcernService concernService;
     @Autowired
     private VideoService videoService;
+    @Autowired
+    private ArticleService articleService;
 
     @RequestMapping("/")
-    public ModelAndView index(CommentQueryParam commentQueryParam, PageUtil pageUtil){
-        commentQueryParam.setStatus(CommonConstant.VALID);
-        List<Comment> list = commentService.findForPage(commentQueryParam, pageUtil);
+    public ModelAndView index(AskQueryParam askQueryParam, PageUtil pageUtil){
+        askQueryParam.setStatus(CommonConstant.VALID);
+        List<Ask> list = askService.findForPage(askQueryParam, pageUtil);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         modelAndView.addObject("list", list);
@@ -50,11 +52,11 @@ public class IndexController {
     }
 
     @RequestMapping("list")
-    public ModelAndView list(CommentQueryParam commentQueryParam, PageUtil pageUtil, HttpServletRequest request){
+    public ModelAndView list(AskQueryParam askQueryParam, PageUtil pageUtil, HttpServletRequest request){
         Integer memberId = (Integer) request.getSession().getAttribute("memberId");
-        commentQueryParam.setStatus(CommonConstant.VALID);
-        commentQueryParam.setMemberId(memberId);
-        List<Comment> list = commentService.findForPage(commentQueryParam, pageUtil);
+        askQueryParam.setStatus(CommonConstant.VALID);
+        askQueryParam.setMemberId(memberId);
+        List<Ask> list = askService.findForPage(askQueryParam, pageUtil);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("askList");
         modelAndView.addObject("list", list);
@@ -68,13 +70,13 @@ public class IndexController {
         List<CommentDTO> commentList = commentService.findPageCommentByAskId(id, new PageUtil());
         Integer memberId = (Integer) request.getSession().getAttribute("memberId");
         ModelAndView modelAndView = new ModelAndView();
-        if(Objects.nonNull(memberId)){
-            boolean concern = concernService.isConcern(id, memberId);
-            modelAndView.addObject("concern", concern);
-        }
+//        if(Objects.nonNull(memberId)){
+//            boolean concern = concernService.isConcern(id, memberId);
+//            modelAndView.addObject("concern", concern);
+//        }
         modelAndView.setViewName("detail");
         modelAndView.addObject("ask", ask);
-        modelAndView.addObject("comment", CollectionUtils.isEmpty(commentList) ? null : commentList.get(0));
+        modelAndView.addObject("commentList", commentList);
         return modelAndView;
     }
 
@@ -103,4 +105,15 @@ public class IndexController {
         modelAndView.addObject("video", video);
         return modelAndView;
     }
+
+    @RequestMapping("notice/index")
+    public ModelAndView noticeIndex(ArticleQueryParam articleQueryParam, PageUtil pageUtil){
+        List<Article> list = articleService.findForPage(articleQueryParam, pageUtil);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("notice");
+        modelAndView.addObject("list", list);
+        modelAndView.addObject("page", pageUtil);
+        return modelAndView;
+    }
+
 }

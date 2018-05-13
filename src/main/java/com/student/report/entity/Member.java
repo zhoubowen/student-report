@@ -31,6 +31,9 @@ public class Member {
     @Transient
     private Dictionary clazzDic;
     private Integer dormitory;
+    private Integer positional;
+    @Transient
+    private Dictionary positionalDic;
     @Transient
     private Dictionary dormitoryDic;
     private String schoolNo;
@@ -39,6 +42,8 @@ public class Member {
     private Date createTime;
     @Column(name = "update_time")
     private Date updateTime;
+    private String curriculum;
+    private String address;
     /**
      * 性别0男,1女
      */
@@ -94,6 +99,7 @@ public class Member {
      * 编辑状态0能编辑,1否
      */
     private Integer editorAble;
+
 
     public Integer getArrangement() {
         return arrangement;
@@ -357,6 +363,38 @@ public class Member {
 
     public void setTuition(Integer tuition) {
         this.tuition = tuition;
+    }
+
+    public Integer getPositional() {
+        return positional;
+    }
+
+    public void setPositional(Integer positional) {
+        this.positional = positional;
+    }
+
+    public Dictionary getPositionalDic() {
+        return positionalDic;
+    }
+
+    public void setPositionalDic(Dictionary positionalDic) {
+        this.positionalDic = positionalDic;
+    }
+
+    public String getCurriculum() {
+        return curriculum;
+    }
+
+    public void setCurriculum(String curriculum) {
+        this.curriculum = curriculum;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override

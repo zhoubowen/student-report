@@ -134,13 +134,19 @@
 </div>
 
 
-<div id="static" class="modal hide fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div id="static" class="modal hide fade" tabindex="-1">
     <form id="modelDeleteForm" action="/admin/member/save" method="post">
         <div class="modal-body form form-horizontal">
             <div class="control-group">
                 <label class="control-label">新密码</label>
                 <div class="controls">
-                    <input type="password" name="password" class="span3 m-wrap" value="">
+                    <input type="password" name="password" class=" m-wrap" value="">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">确认密码</label>
+                <div class="controls">
+                    <input type="password" name="repassword" class=" m-wrap" value="">
                 </div>
             </div>
         </div>
@@ -169,11 +175,38 @@
             $(this).find('input[name=status]').val(status);
         });
 
+
+        $("input[name ='repassword']").blur(function () {
+            var password = $("input[name='password']").val();
+            var repassword = $("input[name ='repassword']").val();
+            if(!password || !repassword){
+                alert("密码,确认密码必填");
+                $('#static').modal('show');
+                return;
+            }
+            if(repassword != password){
+                alert("两次输入密码不一致,请重新输入!");
+                return;
+            }
+        });
+
     });
 
     function doDelete() {
+        var password = $("input[name='password']").val();
+        var repassword = $("input[name ='repassword']").val();
+        if(!password || !repassword){
+            alert("密码,确认密码必填");
+            $('#static').modal('show');
+            return;
+        }
+        if(repassword != password){
+            alert("两次输入密码不一致,请重新输入!");
+            return;
+        }
         $("#modelDeleteForm").submit();
     }
+
 
 </script>
 </body>

@@ -27,7 +27,7 @@ public class Comment {
 
     @Column(name = "reply_member_id")
     private Integer replyMemberId;
-
+    private String title;
     @Transient
     private Member replyMember;
     private Integer status;
@@ -36,6 +36,14 @@ public class Comment {
 
     @Column(name = "update_time")
     private Date updateTime;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Integer getId() {
         return id;

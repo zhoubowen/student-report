@@ -28,9 +28,16 @@
                             <form action="/member/askSave" class="form-horizontal" method="post">
 
                                 <div class="control-group">
-                                    <label class="control-label">描述</label>
+                                    <label class="control-label">标题</label>
                                     <div class="controls">
-                                        <textarea id="editor_id" name="content" style="width:90%;height:300px;">
+                                        <input type="text" name="title">
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">内容</label>
+                                    <div class="controls">
+                                        <textarea id="editor_id" name="descript" style="width:90%;height:300px;">
                                         </textarea>
                                     </div>
                                 </div>

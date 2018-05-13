@@ -6,7 +6,7 @@
 <body class="page-header-fixed page-full-width">
 
 <div class="header navbar navbar-inverse navbar-fixed-top">
-    <jsp:include page="nav.jsp?m=${ask.status == 1 ? 1 : 0}"/>
+    <jsp:include page="nav.jsp?m=0"/>
 </div>
 
 
@@ -21,20 +21,20 @@
                     <div class="row-fluid">
                         <div class="span12 blog-article">
                             <h4>${ask.title}</h4>
-                            <c:choose>
-                                <c:when test="${concern}">
-                                    <a class="btn green mini" href="javascript:;">已关注</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a class="btn green mini" href="/concern/add?askId=${ask.id}">关注此问题</a>
-                                </c:otherwise>
-                            </c:choose>
+                            <%--<c:choose>--%>
+                                <%--<c:when test="${concern}">--%>
+                                    <%--<a class="btn green mini" href="javascript:;">已关注</a>--%>
+                                <%--</c:when>--%>
+                                <%--<c:otherwise>--%>
+                                    <%--<a class="btn green mini" href="/concern/add?askId=${ask.id}">关注此问题</a>--%>
+                                <%--</c:otherwise>--%>
+                            <%--</c:choose>--%>
 
                             <div class="blog-img blog-tag-data">
                                 <ul class="unstyled inline">
                                     <li><i class="icon-calendar"></i> <fmt:formatDate value="${ask.createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></li>
                                     <li><i class="icon-comments"></i> <a href="/member/info?memberId=${ask.createBy}&type=1">${ask.member.name}</a></li>
-                                    <li><i class="icon-heart" title="关注数"></i>${ask.concerns}</li>
+                                    <%--<li><i class="icon-heart" title="关注数"></i>${ask.concerns}</li>--%>
                                 </ul>
                             </div>
                             <p>
@@ -44,9 +44,8 @@
 
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
 
-                            <hr>
                             <div class="media">
-                                <h4>问题回复</h4>
+                                <h3>留言回复</h3>
 
 
                                 <c:if test="${empty commentList}">
@@ -57,9 +56,6 @@
                                     <div class="media-body">
                                         <p>${item.content} </p>
                                         <h5 class="media-heading">${item.memberName} <span><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                            <c:if test="${ask.createBy == sessionScope.memberId} && ${ask.status == 0}">
-                                                / <a href="/askResolve?id=${ask.id}&status=1">标记解决</a></span></h5>
-                                            </c:if>
                                         <hr>
                                     </div>
                                 </c:forEach>

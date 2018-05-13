@@ -58,7 +58,8 @@ public class LonginController {
     public String logout(HttpServletRequest request){
         HttpSession session1 = request.getSession();
         session1.invalidate();
-        return "redirect:/admin/";
+//        return "redirect:/admin/";
+        return "redirect:/member/loginInput";
 
     }
 }

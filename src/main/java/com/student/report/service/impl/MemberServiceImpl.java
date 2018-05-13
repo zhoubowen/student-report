@@ -137,4 +137,9 @@ public class MemberServiceImpl implements MemberService {
         }
         return t;
     }
+
+    @Override
+    public int count(Member member) {
+        return memberMapper.selectCount(member);
+    }
 }
