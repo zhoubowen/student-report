@@ -58,6 +58,10 @@ public class MemberController {
             httpSession.setAttribute("memberId", longMember.getId());
             httpSession.setAttribute("roleType", longMember.getRoleType());
             httpSession.setAttribute("name", longMember.getName());
+            modelAndView.setViewName("/admin/index");
+            if(member.getRoleType() == 0){
+                return "redirect:/admin/index";
+            }
             return "redirect:/member/info";
         } catch (BusinessException e) {
             modelAndView.addObject("code", e.getCode());
@@ -100,6 +104,7 @@ public class MemberController {
 
     @RequestMapping("memberSave")
     public String memberSave(Member member){
+        member.setEditorAble(1);
         memberService.update(member);
         return "redirect:/member/info";
     }

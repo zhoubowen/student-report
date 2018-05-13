@@ -1,6 +1,7 @@
 package com.student.report.entity;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,6 +39,165 @@ public class Member {
     private Date createTime;
     @Column(name = "update_time")
     private Date updateTime;
+    /**
+     * 性别0男,1女
+     */
+    private Integer sex;
+    /**
+     * 生日
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+    /**
+     * 民族
+     */
+    private String minority;
+    /**
+     * 身份证
+     */
+    private String idCard;
+    /**
+     * 学校名称
+     */
+    private String schoolName;
+    /**
+     * 学历类别
+     */
+    private Integer eduType;
+    /**
+     * 学习形式
+     */
+    private Integer eduWay;
+    /**
+     * 入学时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date schooleJoin;
+    /**
+     * 预计毕业时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date graduationTime;
+    /**
+     * 学籍状态, 0在急,1毕业
+     */
+    private Integer schoolStatus;
+    /**
+     * 学制
+     */
+    private Float schooling;
+    /**
+     * 0本科,1专科
+     */
+    private Integer arrangement;
+    /**
+     * 编辑状态0能编辑,1否
+     */
+    private Integer editorAble;
+
+    public Integer getArrangement() {
+        return arrangement;
+    }
+
+    public void setArrangement(Integer arrangement) {
+        this.arrangement = arrangement;
+    }
+
+    public Float getSchooling() {
+        return schooling;
+    }
+
+    public void setSchooling(Float schooling) {
+        this.schooling = schooling;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getMinority() {
+        return minority;
+    }
+
+    public void setMinority(String minority) {
+        this.minority = minority;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
+
+    public Integer getEduType() {
+        return eduType;
+    }
+
+    public void setEduType(Integer eduType) {
+        this.eduType = eduType;
+    }
+
+    public Integer getEduWay() {
+        return eduWay;
+    }
+
+    public void setEduWay(Integer eduWay) {
+        this.eduWay = eduWay;
+    }
+
+    public Date getSchooleJoin() {
+        return schooleJoin;
+    }
+
+    public void setSchooleJoin(Date schooleJoin) {
+        this.schooleJoin = schooleJoin;
+    }
+
+    public Date getGraduationTime() {
+        return graduationTime;
+    }
+
+    public void setGraduationTime(Date graduationTime) {
+        this.graduationTime = graduationTime;
+    }
+
+    public Integer getSchoolStatus() {
+        return schoolStatus;
+    }
+
+    public void setSchoolStatus(Integer schoolStatus) {
+        this.schoolStatus = schoolStatus;
+    }
+
+    public Integer getEditorAble() {
+        return editorAble;
+    }
+
+    public void setEditorAble(Integer editorAble) {
+        this.editorAble = editorAble;
+    }
 
     public Long getPhone() {
         return phone;

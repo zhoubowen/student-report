@@ -34,6 +34,8 @@
 
 <script charset="utf-8" src="/kindeditor/kindeditor-all-min.js"></script>
 <script charset="utf-8" src="/kindeditor/lang/zh-CN.js"></script>
+<script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
+
 
 
 

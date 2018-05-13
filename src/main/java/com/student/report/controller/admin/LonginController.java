@@ -47,6 +47,13 @@ public class LonginController {
         return modelAndView;
     }
 
+    @RequestMapping("index")
+    public ModelAndView adminIndex(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/admin/index");
+        return modelAndView;
+    }
+
     @RequestMapping("logout")
     public String logout(HttpServletRequest request){
         HttpSession session1 = request.getSession();

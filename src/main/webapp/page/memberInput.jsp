@@ -28,27 +28,188 @@
                             <form action="/member/memberSave" class="form-horizontal" method="post">
 
                                 <input type="hidden" name="id" value="${member.id}"/>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">姓名</label>
+                                            <div class="controls">
+                                                <input type="text" name="name" class=" m-wrap" value="${member.name}">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                <div class="control-group">
-                                    <label class="control-label">昵称</label>
-                                    <div class="controls">
-                                        <input type="text" name="name" class="span6 m-wrap" value="${member.name}">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">邮箱</label>
+                                            <div class="controls">
+                                                <input type="text" name="email" class=" m-wrap" value="${member.email}">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="control-group">
-                                    <label class="control-label">邮箱</label>
-                                    <div class="controls">
-                                        <input type="text" name="email" class="span6 m-wrap" value="${member.email}">
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">手机号码</label>
+                                            <div class="controls">
+                                                <input type="text" name="phone" class=" m-wrap" value="${member.phone}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">性别</label>
+                                            <div class="controls">
+                                                <select>
+                                                    <option value="0">男</option>
+                                                    <option value="1">女</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">身份证</label>
+                                            <div class="controls">
+                                                <input type="text" name="idCard" class=" m-wrap" value="${member.idCard}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">学校名称</label>
+                                            <div class="controls">
+                                                <input type="text" name="schoolName" class=" m-wrap" value="${member.schoolName}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">民族</label>
+                                            <div class="controls">
+                                                <input type="text" name="minority" class=" m-wrap" value="${member.minority}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">学历类型</label>
+                                            <div class="controls">
+                                                <select name="eduType">
+                                                    <option value="0">普通</option>
+                                                    <option value="1">其他</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">学习形式</label>
+                                            <div class="controls">
+                                                <select name="eduWay">
+                                                    <option value="0">普通全日制</option>
+                                                    <option value="1">其他</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">出生日期</label>
+                                            <div class="controls">
+                                                <input type="text" name="birthday" class=" m-wrap" value="<fmt:formatDate value="${member.birthday}" pattern="yyyy-MM-dd"/>" id="birthday" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="control-group">
-                                    <label class="control-label">手机号码</label>
-                                    <div class="controls">
-                                        <input type="text" name="phone" class="span6 m-wrap" value="${member.phone}">
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">学制</label>
+                                            <div class="controls">
+                                                <input type="text" name="schooling" class=" m-wrap" value="${member.schooling}" >
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">层次</label>
+                                            <div class="controls">
+                                                <select name="arrangement">
+                                                    <option value="0">本科</option>
+                                                    <option value="1">专科</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">入学时间</label>
+                                            <div class="controls">
+                                                <input type="text" name="schooleJoin" class=" m-wrap" value="<fmt:formatDate value="${member.schooleJoin}" pattern="yyyy-MM-dd"/>"  id="schooleJoin" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">预计毕业时间</label>
+                                            <div class="controls">
+                                                <input type="text" name="graduationTime" class=" m-wrap" value="<fmt:formatDate value="${member.graduationTime}" pattern="yyyy-MM-dd"/>"  id="graduationTime" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">学号</label>
+                                            <div class="controls">
+                                                <input type="text" name="schoolNo" class=" m-wrap" value="${member.schoolNo}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">学籍状态</label>
+                                            <div class="controls">
+                                                <select name="schoolStatus">
+                                                    <option value="0">在籍</option>
+                                                    <option value="1">毕业</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="form-actions">
                                     <button type="submit" class="btn blue">保存</button>
@@ -83,6 +244,14 @@
             });
 
         });
+        var editorAble = '${member.editorAble}';
+        if(editorAble === '1'){
+            $("input").attr("disabled", "disabled");
+            $("select").attr("disabled", "disabled");
+            $("[name='phone']").removeAttrs("disabled");
+            $("[name='email']").removeAttrs("disabled");
+
+        }
     });
     
     function doInfo(i) {

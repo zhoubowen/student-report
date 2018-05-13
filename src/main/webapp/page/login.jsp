@@ -71,7 +71,17 @@
         </div>
 
         <div class="form-actions">
-
+            <div style="float: left">
+                <label style="width: 90px; float: left">
+                    <input type="radio" value="0" name="roleType"> 管理员
+                </label>
+                <label style="width: 90px; float: left">
+                    <input type="radio" value="1" name="roleType"> 老师
+                </label>
+                <label style="width: 90px; float: left">
+                    <input type="radio" value="2" name="roleType"> 学生
+                </label>
+            </div>
             <button type="submit" class="btn green pull-right">
 
                 登录 <i class="m-icon-swapright m-icon-white"></i>
