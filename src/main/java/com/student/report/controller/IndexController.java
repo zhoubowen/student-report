@@ -65,7 +65,7 @@ public class IndexController {
     }
 
     @RequestMapping("/detail")
-    public ModelAndView detail(Integer id, HttpServletRequest request){
+    public ModelAndView detail(Integer id, Integer fromType, HttpServletRequest request){
         Ask ask = askService.findById(id);
         List<CommentDTO> commentList = commentService.findPageCommentByAskId(id, new PageUtil());
         Integer memberId = (Integer) request.getSession().getAttribute("memberId");
@@ -74,7 +74,11 @@ public class IndexController {
 //            boolean concern = concernService.isConcern(id, memberId);
 //            modelAndView.addObject("concern", concern);
 //        }
-        modelAndView.setViewName("detail");
+        if(Objects.nonNull(fromType)){
+            modelAndView.setViewName("/admin/askDetail");
+        }else{
+            modelAndView.setViewName("detail");
+        }
         modelAndView.addObject("ask", ask);
         modelAndView.addObject("commentList", commentList);
         return modelAndView;

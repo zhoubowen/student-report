@@ -17,7 +17,8 @@
                     <ul class="sub-menu">
                         <li class="${param.m == 0 ? 'active' : '' }"><a href="/admin/member/index?roleType=2&status=1">学生管理</a></li>
                         <li class="${param.m == 1 ? 'active' : '' }"><a href="/admin/member/index?roleType=1&status=1">教师管理</a></li>
-                        <li class="${param.m == 2 ? 'active' : '' }"><a href="/admin/comment/index?status=1">留言管理</a></li>
+                        <li class="${param.m == 2 ? 'active' : '' }"><a href="/admin/ask/index?status=1">留言管理</a></li>
+                        <li class="${param.m == 4 ? 'active' : '' }"><a href="/admin/notice/index?type=2">公告管理</a></li>
                     </ul>
                 </li>
             </c:when>
@@ -29,7 +30,7 @@
                     </a>
                     <ul class="sub-menu">
                         <li class="${param.m == 5 ? 'active' : '' }"><a href="/admin/member/index?roleType=2&status=1&loginRoleType=1">学生管理</a></li>
-                        <li class="${param.m == 2 ? 'active' : '' }"><a href="/admin/comment/index?status=1">留言管理</a></li>
+                        <li class="${param.m == 2 ? 'active' : '' }"><a href="/admin/ask/index?status=1">留言管理</a></li>
                         <li class="${param.m == 4 ? 'active' : '' }"><a href="/admin/notice/index?type=2">公告管理</a></li>
                     </ul>
                 </li>

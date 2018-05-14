@@ -35,6 +35,6 @@ public class AskManagerController {
     @RequestMapping("update")
     public String update(Ask ask){
         askService.updateByPrimaryKeySelective(ask);
-        return "redirect:/admin/ask/index";
+        return "redirect:/admin/ask/index?status=" + ask.getStatus();
     }
 }

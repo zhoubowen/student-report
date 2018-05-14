@@ -28,7 +28,7 @@
                             <a href="/admin/member/index">留言管理</a>
                             <i class="icon-angle-right"></i>
                         </li>
-                        <li><a href="#">留言列表</a></li>
+                        <li><a href="#">留言详情</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,54 +40,61 @@
 
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="icon-globe"></i>留言列表
+                                <i class="icon-globe"></i>留言详情
                             </div>
                         </div>
 
                         <div class="portlet-body">
 
                             <div class="tabbable tabbable-custom">
-                                <ul class="nav nav-tabs">
-                                    <li class="${param.status == 0 ? 'active' : ''}"><a href="/admin/ask/index?status=0">待审核</a></li>
-                                    <li class="${param.status == 1 ? 'active' : ''}"><a href="/admin/ask/index?status=1">已审核</a></li>
-                                </ul>
 
                                 <div class="tab-content">
                                     <div class="tab-pane active">
                                         <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th class="hidden-480">标题</th>
-                                                <th class="hidden-480">发布者</th>
-                                                <th class="hidden-480">发布时间</th>
-                                                <th >操作</th>
-                                            </tr>
-
-                                            </thead>
-
                                             <tbody>
-                                            <c:forEach var="item" items="${list}">
                                                 <tr class="odd gradeX">
-                                                    <td class="hidden-480"><a href="/detail?id=${item.id}&fromType=1">${item.title}</a></td>
-                                                    <td class="hidden-480">${item.member.name}</td>
-                                                    <td class="hidden-480">
-                                                        <fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                                                    </td>
-                                                    <td >
-                                                        <c:if test="${param.status == 0}">
-                                                            <a class="btn btn-mini green" href="/admin/ask/update?id=${item.id}&status=1">审核通过</a>
-                                                        </c:if>
-                                                        <a class="btn btn-mini red" data-toggle = "modal" data-id= "${item.id}" data-target="#static">删除</a>
-                                                    </td>
+                                                    <td class="hidden-480"><b>标题</b></td>
+                                                    <td class="hidden-480">${ask.title}</td>
                                                 </tr>
-                                            </c:forEach>
+                                                <tr class="odd gradeX">
+                                                    <td class="hidden-480"><b>内容</b></td>
+                                                    <td class="hidden-480">${ask.descript}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>回复</b></td>
+                                                </tr>
+                                                <c:if test="${empty commentList}">
+                                                    <tr><td colspan="2">暂无回复!</td></tr>
+                                                </c:if>
+                                                <c:forEach items="${commentList}" var="item">
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            ${item.content}   &nbsp;  --- <span class="media-heading">${item.memberName} <span><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
                                             </tbody>
                                         </table>
+
+                                        <c:if test="${ask.createBy != sessionScope.memberId}">
+                                            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                            <div class="post-comment">
+                                                <h4>我要回答</h4>
+                                                <input type="hidden" name="askId" value="${ask.id}" />
+                                                <textarea class="span10 m-wrap" rows="5" name="content"></textarea>
+                                                <p>
+                                                    <button class="btn blue" type="submit" onclick="addComment()">提交</button>
+                                                    <a class="btn green"  href="javascript:history.go(-1);">返回</a>
+                                                </p>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
-
-                            <%@include file="pagination.jsp"%>
 
 
                         </div>
@@ -137,6 +144,24 @@
 
     function doDelete() {
         $("#modelDeleteForm").submit();
+    }
+
+
+    function addComment() {
+        $.post(
+                "/comment/add",
+                {
+                    articleId: $("input[name=askId]").val(),
+                    content : $("textarea[name=content]").val()
+                },
+                function(result){
+                    if(result.success){
+                        window.location.reload();
+                    }
+                    console.log(result);
+
+                }
+        );
     }
 
 </script>
